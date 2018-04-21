@@ -1,0 +1,25 @@
+﻿<Page x:Class="ProgrammingPractice.MethodSpecificPages.FindFirstDuplicatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgrammingPractice.MethodSpecificPages"
+      mc:Ignorable="d" 
+      Height="500" Width="350" Title="Find First Recurring Character">
+
+    <Grid Background="WhiteSmoke">
+        <Label FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Center" Height="30"
+               Content="Find First Recurring Character"/>
+        <TextBlock Name="MethodSummaryTextBlock"  Margin="10,35,10,0" Height="50" VerticalAlignment="Top" TextWrapping="Wrap"/>
+        <Label VerticalAlignment="Top" Margin="10,100,11,0" Height="30" FontWeight="Bold" Content="Please provide an input string:"/>
+        <TextBox Name="UserInputTextBox" Height="75" VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,130,10,0" Background="White" VerticalScrollBarVisibility="Visible"/>
+        <Button Name="BruteForceButton" Click="RunRecurringDetection_Click" Height="30" Width="150" VerticalAlignment="Top" Margin="10,210,10,0"  Content="Run Brute Force Method"/>
+        <Button Name="DictionaryLookupButton" Click="RunRecurringDetection_Click" Height="30" Width="150" VerticalAlignment="Top" Margin="10,250,10,0"  Content="Run Lookup Method"/>
+
+        <Grid Name="ResultsGrid" Visibility="Hidden">
+        <Label VerticalAlignment="Top" Margin="10,320,11,0" Height="30" FontWeight="Bold" Content="Result: "/>
+            <TextBox Name="ResultTextBox" Height="75" VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,350,10,0" 
+                 Background="White" VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
+        </Grid>
+    </Grid>
+</Page>
