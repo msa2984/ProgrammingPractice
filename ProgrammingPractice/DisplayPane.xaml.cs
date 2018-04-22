@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProgrammingPractice
 {
@@ -29,17 +21,52 @@ namespace ProgrammingPractice
             this.Title = WindowCaption;
             InitializeComponent();
             FindMethodPages();
+            MethodPageTabControl.SelectedIndex = 0;
+            (MethodPageTabControl.SelectedContent as Frame).IsEnabled = true;
         }
 
         /// <summary>
-        /// Find all of the Pages within the MethodSpecificPages namespace in this project.
+        /// Event Handler for when the "About" Button is selected from Toolbar.
         /// </summary>
-        public void FindMethodPages()
+        /// <param name="sender">Reference to the control (About Button) that raised this event./param>
+        /// <param name="e">The data for the event raised.</param>
+        public void About_Click(Object sender, EventArgs e)
         {
-            var methodPages = from type in Assembly.GetExecutingAssembly().GetTypes()
-                              where type.IsClass && type.Namespace == MethodPageNamespace
-                              select type;
-            methodPages.ToList().ForEach(page => CreateMethodTabs(page));
+            MessageBox.Show("This UI allows for the execution of a compilation of programming problems.\nThe code can be found at: ", WindowCaption);
+        }
+
+        /// <summary>
+        /// Event Handler for when the user selects a different TabItem to view.
+        /// </summary>
+        /// <param name="sender">Reference to the control (Selecting a new TabItem) that raised this event./param>
+        /// <param name="e">The data for the event raised.</param>
+        private void MethodPageTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsActive && !((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled)
+            {
+                if (MessageBox.Show("Navigating to a new tab will clear the information from the current tab! Are you sure you want to continue?",
+                     WindowCaption, MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
+                {
+                    ((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled = true;
+                    ((e.RemovedItems[0] as TabItem).Content as Frame).IsEnabled = false;
+                    foreach (TextBox tb in FindVisualChildren<TextBox>(((e.RemovedItems[0] as TabItem).Content as Frame).Content as Page))
+                    {
+                        tb.Text = String.Empty;
+                    }
+
+                    foreach (ComboBox cb in FindVisualChildren<ComboBox>(((e.RemovedItems[0] as TabItem).Content as Frame).Content as Page))
+                    {
+                        cb.SelectedIndex = -1;
+                    }
+                }
+                else
+                {
+                    MethodPageTabControl.SelectedItem = e.RemovedItems[0];
+                    ((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled = false;
+                    ((e.RemovedItems[0] as TabItem).Content as Frame).IsEnabled = true;
+                    e.Handled = true;
+                }
+            }
         }
 
         /// <summary>
@@ -47,7 +74,7 @@ namespace ProgrammingPractice
         /// type of page provided to the method.
         /// </summary>
         /// <param name="pageType">The page to create the tab for.</param>
-        public void CreateMethodTabs(Type pageType)
+        private void CreateMethodTabs(Type pageType)
         {
             Page methodPage = (Page)Activator.CreateInstance(pageType);
             Frame pageFrame = new Frame();
@@ -62,6 +89,7 @@ namespace ProgrammingPractice
 
             pageFrame.Margin = new Thickness(0, 10, 0, 10);
             pageFrame.Content = methodPage;
+            pageFrame.IsEnabled = false;
 
             tc.Header = headerBlock;
             tc.Content = pageFrame;
@@ -69,14 +97,34 @@ namespace ProgrammingPractice
         }
 
         /// <summary>
-        /// Event Handler for when the "About" Button is selected from Toolbar.
+        /// Find all of the Pages within the MethodSpecificPages namespace in this project.
         /// </summary>
-        /// <param name="sender">Reference to the control (About Button) that raised this event./param>
-        /// <param name="e">The data for the event raised.</param>
-        public void About_Click(Object sender, EventArgs e)
+        private void FindMethodPages()
         {
-            MessageBox.Show("This UI allows for the execution of a compilation of programming problems.\nThe code can be found at: ", WindowCaption);
+            var methodPages = from type in Assembly.GetExecutingAssembly().GetTypes()
+                              where type.IsClass && type.Namespace == MethodPageNamespace
+                              select type;
+            methodPages.ToList().ForEach(page => CreateMethodTabs(page));
         }
 
+        private static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <TabControl Name="MethodPageTabControl" Margin="10,25,10,25" TabStripPlacement="Left">
-        </TabControl>
+        <TabControl Name="MethodPageTabControl" Margin="10,25,10,25" TabStripPlacement="Left" 
+                    SelectionChanged="MethodPageTabControl_SelectionChanged" IsSynchronizedWithCurrentItem="True"/>
     </Grid>
 </Window>
