@@ -32,7 +32,8 @@ namespace ProgrammingPractice
         /// <param name="e">The data for the event raised.</param>
         public void About_Click(Object sender, EventArgs e)
         {
-            MessageBox.Show("This UI allows for the execution of a compilation of programming problems.\nThe code can be found at: ", WindowCaption);
+            MessageBox.Show("This UI allows for the execution of a compilation of programming problems.\nThe code can be found at: " +
+               @"https://github.com/msa2984/ProgrammingPractice" , WindowCaption);
         }
 
         /// <summary>
@@ -107,6 +108,14 @@ namespace ProgrammingPractice
             methodPages.ToList().ForEach(page => CreateMethodTabs(page));
         }
 
+        /// <summary>
+        /// Search through a UI element that has child controls, 
+        /// returning the items that match the type provided in 
+        /// the method call.
+        /// </summary>
+        /// <typeparam name="T">The type to search for.</typeparam>
+        /// <param name="depObj">The UI element to search through</param>
+        /// <returns>IEnumerable of type T.</returns>
         private static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)

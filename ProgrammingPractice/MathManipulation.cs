@@ -16,7 +16,7 @@ namespace ProgrammingPractice
         /// Number of hours on a typical clock, which 
         /// follows AM / PM designation, not military time.
         /// </summary>
-        private const int HoursOnClock = 12; 
+        private const int HoursOnClock = 12;
         /// <summary>
         /// Number of minutes in an hour.
         /// </summary>
@@ -43,5 +43,67 @@ namespace ProgrammingPractice
 
             return new Tuple<decimal, decimal>(degreeDifference, radianDifference);
         }
+
+        /// <summary>
+        /// Iteratively finds the Fibonacci sequence, up to n-entries. Takes O(n) time. 
+        /// </summary>
+        /// <param name="numberOfIteractions">n number of entries to calculate.</param>
+        /// <returns>A string with the Fibonacci sequence, separated by a comma.</returns>
+        public static string BruteForceFibonacciCalculation(int numberOfIterations)
+        {
+            List<ulong> fibonacciNumbers = new List<ulong>();
+
+            for (int i = 0; i < numberOfIterations; i++)
+            {
+
+                switch (fibonacciNumbers.Count)
+                {
+                    case 0:
+                        fibonacciNumbers.Add(0);
+                        break;
+                    case 1:
+                    case 2:
+                        fibonacciNumbers.Add(1);
+                        break;
+                    default:
+                        fibonacciNumbers.Add(fibonacciNumbers[i - 1] + fibonacciNumbers[i - 2]);
+                        break;
+                }
+            }
+            return String.Join(" , ", fibonacciNumbers);
+        }
+
+        /// <summary>
+        /// Iteratively finds the Fibonacci sequence, up to n-entries. Takes exponential time. 
+        /// </summary>
+        /// <param name="numberOfIteractions">n number of entries to calculate.</param>
+        /// <returns>A string with the Fibonacci sequence, separated by a comma.</returns>
+        public static string RecursiveFibonacciCalculation(int numberOfIterations)
+        {
+            string fibonacciNumbers = String.Empty;
+            PerformFibonacciRecursion(0, 1, 1, numberOfIterations, ref fibonacciNumbers);
+            return fibonacciNumbers;
+        }
+
+        /// <summary>
+        /// Recursive helper method for RecursiveFibonacciCalculation.
+        /// </summary>
+        /// <param name="firstValueToAdd">The first Fibonacci value in this iteration</param>
+        /// <param name="secondValueToAdd">The second Fibonacci value in this iteration</param>
+        /// <param name="counter">tracker to determine when all of the Fibonacci values have been calculated.</param>
+        /// <param name="nValue">the value of n - number of Fibonacci numbers to report</param>
+        /// <param name="fibString">the string to append the first Fibonacci value to.</param>
+        public static void PerformFibonacciRecursion(ulong firstValueToAdd, ulong secondValueToAdd,
+            int counter, int nValue, ref string fibString)
+        {
+            fibString += firstValueToAdd;
+            if (counter < nValue)
+            {
+                fibString += " , ";
+                PerformFibonacciRecursion(secondValueToAdd, firstValueToAdd + secondValueToAdd,
+                    counter + 1, nValue, ref fibString);
+            }
+        }
+
     }
 }
