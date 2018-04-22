@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MathManipulation.cs" />
+    <Compile Include="MethodSpecificPages\CalculateClockAngle.xaml.cs">
+      <DependentUpon>CalculateClockAngle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MethodSpecificPages\FindFirstDuplicatePage.xaml.cs">
       <DependentUpon>FindFirstDuplicatePage.xaml</DependentUpon>
     </Compile>
@@ -70,6 +74,10 @@
       <DependentUpon>DisplayPane.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MethodSpecificPages\CalculateClockAngle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MethodSpecificPages\FindFirstDuplicatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
