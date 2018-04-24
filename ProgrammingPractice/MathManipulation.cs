@@ -105,5 +105,36 @@ namespace ProgrammingPractice
             }
         }
 
+        /// <summary>
+        /// Takes in an array of integers, and simplifies it: 
+        /// Any adjacent duplicates are added together and the second instance set to 0;
+        /// all zeroes are pushed to the end of the array.
+        /// </summary>
+        /// <param name="arrayToSimplify">The array to simplify.</param>
+        /// <returns>The simplified array.</returns>
+        public static int[] PerformArraySimplification(int[] arrayToSimplify)
+        {
+            int count = 0;
+            for (int i = 0; i < arrayToSimplify.Length; i++)
+            {
+                if (i + 1 < arrayToSimplify.Length && arrayToSimplify[i] == arrayToSimplify[i + 1] && arrayToSimplify[i] != 0)
+                {
+                    arrayToSimplify[i] += arrayToSimplify[i + 1];
+                    arrayToSimplify[i + 1] = 0;
+                }
+
+                if (arrayToSimplify[i] != 0)
+                {
+                    arrayToSimplify[count++] = arrayToSimplify[i];
+                }
+            }            
+
+            while (count < arrayToSimplify.Length)
+            {
+                arrayToSimplify[count++] = 0;
+            }
+
+            return arrayToSimplify;
+        }
     }
 }

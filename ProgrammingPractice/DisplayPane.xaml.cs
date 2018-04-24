@@ -103,7 +103,7 @@ namespace ProgrammingPractice
         private void FindMethodPages()
         {
             var methodPages = from type in Assembly.GetExecutingAssembly().GetTypes()
-                              where type.IsClass && type.Namespace == MethodPageNamespace
+                              where type.Namespace == MethodPageNamespace && type.IsSubclassOf(typeof(Page))
                               select type;
             methodPages.ToList().ForEach(page => CreateMethodTabs(page));
         }
