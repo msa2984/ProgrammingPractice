@@ -43,13 +43,18 @@ namespace ProgrammingPractice
         /// <param name="e">The data for the event raised.</param>
         private void MethodPageTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.IsActive && !((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled)
+            bool clearResults = true;
+            if (this.IsActive && ((e.RemovedItems[0] as TabItem).Content as Frame).IsEnabled)
             {
-                if (MessageBox.Show("Navigating to a new tab will clear the information from the current tab! Are you sure you want to continue?",
-                     WindowCaption, MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
+                if (((((e.RemovedItems[0] as TabItem).Content as Frame).Content as Page)
+                    .FindName("ResultsGrid") as Grid).Visibility == Visibility.Visible)
                 {
-                    ((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled = true;
-                    ((e.RemovedItems[0] as TabItem).Content as Frame).IsEnabled = false;
+                    clearResults = MessageBox.Show("Navigating to a new tab will clear the information from the current tab! Are you sure you want to continue?",
+                     WindowCaption, MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes;
+                }
+
+                if (clearResults)
+                {
                     foreach (TextBox tb in FindVisualChildren<TextBox>(((e.RemovedItems[0] as TabItem).Content as Frame).Content as Page))
                     {
                         tb.Text = String.Empty;
@@ -59,6 +64,16 @@ namespace ProgrammingPractice
                     {
                         cb.SelectedIndex = -1;
                     }
+
+                    foreach (Grid grid in FindVisualChildren<Grid>(((e.RemovedItems[0] as TabItem).Content as Frame).Content as Page))
+                    {
+                        if(grid.Name == "ResultsGrid")
+                        {
+                            grid.Visibility = Visibility.Hidden;
+                        }
+                    }
+
+                    ((MethodPageTabControl.SelectedItem as TabItem).Content as Frame).IsEnabled = true;
                 }
                 else
                 {
@@ -85,7 +100,8 @@ namespace ProgrammingPractice
             //Using TextBlock allows for text wrapping, 
             //to prevent the Tab Header from becoming too large.
             headerBlock.Text = methodPage.Title;
-            headerBlock.MaxWidth = 150;
+            headerBlock.Margin = new Thickness(10,0,10,0);
+            headerBlock.Width = 150;
             headerBlock.TextWrapping = TextWrapping.Wrap;
 
             pageFrame.Margin = new Thickness(0, 10, 0, 10);

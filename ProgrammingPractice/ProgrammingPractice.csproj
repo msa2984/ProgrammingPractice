@@ -67,6 +67,9 @@
     <Compile Include="MethodSpecificPages\SimplifyArrayContents.xaml.cs">
       <DependentUpon>SimplifyArrayContents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MethodSpecificPages\SortingIntegerArray.xaml.cs">
+      <DependentUpon>SortingIntegerArray.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StringManipulation.cs" />
     <Page Include="DisplayPane.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MethodSpecificPages\SimplifyArrayContents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MethodSpecificPages\SortingIntegerArray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

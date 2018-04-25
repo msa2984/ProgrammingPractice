@@ -1,0 +1,28 @@
+﻿<Page x:Class="ProgrammingPractice.MethodSpecificPages.SortingIntegerArray"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgrammingPractice.MethodSpecificPages"
+      mc:Ignorable="d" 
+      Height="500" Width="350"
+      Title="Sorting an Array of Integers">
+    <Grid Background="WhiteSmoke">
+        <Label FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Center" Height="30"
+               Content="Ease the Contents of an Array"/>
+        <TextBlock Name="MethodSummaryTextBlock"  Margin="10,35,10,0" Height="30" VerticalAlignment="Top" TextWrapping="Wrap"/>
+        <Label VerticalAlignment="Top" Margin="10,70,11,0" Height="30" FontWeight="Bold" Content="Please provide a comma separated array of integers:"/>
+        <TextBox Name="InputArrayTextBox" Height="100" Margin="11,105,10,295"/>
+        <Button Click="SortArrayContents_Click" Height="30" Width="150" VerticalAlignment="Top" 
+                Margin="98,210,102,0"  Content="Run Bubble Sort Method" Name="BubbleSortButton"/>
+        <Button Click="SortArrayContents_Click" Height="30" Width="150" VerticalAlignment="Top" 
+                Margin="98,245,102,0"  Content="Run Insertion Sort Method" Name="InsertionSortButton"/>
+        <Button Click="SortArrayContents_Click" Height="30" Width="150" VerticalAlignment="Top" 
+                Margin="98,280,102,0"  Content="Run Quick Sort Method" Name="QuickSortButton"/>
+
+        <Grid Name="ResultsGrid" Visibility="Hidden">
+            <Label VerticalAlignment="Top" Margin="10,320,10,0" Height="30" FontWeight="Bold" Content="Result: "/>
+            <TextBox Name="ResultsTextBox" Margin="10,355,10,50"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -136,5 +136,104 @@ namespace ProgrammingPractice
 
             return arrayToSimplify;
         }
+
+        /// <summary>
+        /// Takes in an array of integers, and sorts it
+        /// by swapping adjacent integers in-line... O(n^2) 
+        /// </summary>
+        /// <param name="arrayToSort">The array to sort.</param>
+        /// <returns>The sorted array.</returns>
+        public static int[] PerformBubbleSort(int[] arrayToSort)
+        {
+            for (int i = 0; i < arrayToSort.Length - 1; i++)
+            {
+                for (int j = 0; j < arrayToSort.Length - i - 1; j++)
+                {
+                    if (arrayToSort[j] > arrayToSort[j + 1])
+                    {
+                        int temp = arrayToSort[j];
+                        arrayToSort[j] = arrayToSort[j + 1];
+                        arrayToSort[j + 1] = temp;
+                    }
+                }
+            }
+
+            return arrayToSort;
+        }
+
+        /// <summary>
+        /// Takes in an array of integers, and sorts it: 
+        /// If the current item is less than at least one previous item, 
+        /// insert the current item in front of the item it is less than.
+        /// O(n^2)
+        /// </summary>
+        /// <param name="arrayToSort">The array to sort.</param>
+        /// <returns>The sorted array.</returns>
+        public static int[] PerformInsertionSort(int[] arrayToSort)
+        {
+            for (int i = 1; i < arrayToSort.Length; ++i)
+            {
+                int currentValue = arrayToSort[i]; //Store this as the while loop will change the value of arrayToSort[i]
+                int j = i - 1;
+
+                while (j >= 0 && arrayToSort[j] > currentValue)
+                {
+                    arrayToSort[j + 1] = arrayToSort[j];
+                    j = j - 1;
+                }
+                arrayToSort[j + 1] = currentValue;
+            }
+            return arrayToSort;
+        }
+
+        /// <summary>
+        /// Determine the next pivot index for QuickSort -> i.e., 
+        /// max of first array, min of second array.
+        /// </summary>
+        /// <param name="sortArray">array to sort</param>
+        /// <param name="minIndex">the minimum index of the array.</param>
+        /// <param name="maxIndex">the maximum index of the array.</param>
+        /// <returns>an integer index to further pivot the index by.</returns>
+        public static int GetIndexOfSplit(int[] sortArray, int minIndex, int maxIndex)
+        {
+            int splitIndex = sortArray[maxIndex];           
+            int i = (minIndex - 1);
+            for (int j = minIndex; j < maxIndex; j++)
+            {
+                if (sortArray[j] <= splitIndex)
+                {
+                    i++;
+
+                    int temp = sortArray[i];
+                    sortArray[i] = sortArray[j];
+                    sortArray[j] = temp;
+                }
+            }
+
+            int tempValue = sortArray[i + 1];
+            sortArray[i + 1] = sortArray[maxIndex];
+            sortArray[maxIndex] = tempValue;
+
+            return i + 1;
+        }
+
+        /// <summary>
+        /// Method to recursively call to perform a quick sort of
+        /// an array of integers.
+        /// </summary>
+        /// <param name="arrayToSort">The array to sort</param>
+        /// <param name="minIndex">the minimum index of the sort array</param>
+        /// <param name="maxIndex">the maximum index of the sort array</param>
+        public static void QuickSort(int[] arrayToSort, int minIndex, int maxIndex)
+        {
+            if (minIndex < maxIndex)
+            {
+                int partionIndex = GetIndexOfSplit(arrayToSort, minIndex, maxIndex);
+
+                // Recursively sort elements before partition and after partition
+                QuickSort(arrayToSort, minIndex, partionIndex - 1);
+                QuickSort(arrayToSort, partionIndex + 1, maxIndex);
+            }
+        }
     }
 }
