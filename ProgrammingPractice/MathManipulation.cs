@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProgrammingPractice
 {
@@ -234,6 +232,40 @@ namespace ProgrammingPractice
                 QuickSort(arrayToSort, minIndex, partionIndex - 1);
                 QuickSort(arrayToSort, partionIndex + 1, maxIndex);
             }
+        }
+
+
+        public static ulong FindPalindrome(ulong n)
+        {
+            ulong maxPalindrome = 0; 
+            ulong maxMultiplicand = (ulong)Math.Pow(10, n) - 1; // The maximum value is 10^n - 1... i.e, n = 3, 999
+            // The minimum value is 10^(n - 1)... i.e, n = 3, 100
+            // when n is even, the minimum value is 9, repeated n times, times  10^(n - 1), + 1 (i.e., 91, 9901, etc)
+            // when n is odd, the number of leading zeroes in both multiplicands is equal to n. for example, n = 3,  913 x 993
+            ulong minMultiplicand = n % 2 == 0 ? UInt64.Parse(new string('9', (int)(n / 2)).ToString() + new string('0', (int)(n / 2)).ToString()) :
+                UInt64.Parse(new string('9', (int)(n / 2)).ToString()) * (ulong)Math.Pow(10, n - (n / 2));
+
+
+            for (ulong i = maxMultiplicand; i >= minMultiplicand; i--)
+            {
+                if (i % 10 == 0) //If either multiplicand is a multiple of ten, we know that it will not result in a palindrome due to 0 on end.
+                {
+                    continue;
+                }
+                for (ulong j = i; j >= minMultiplicand; j--)
+                {
+                    if (j % 10 == 0) //If either multiplicand is a multiple of ten, we know that it will not result in a palindrome due to 0 on end.
+                    {
+                        continue;
+                    }
+                    ulong product = i * j;
+                    if (product > maxPalindrome && (product.ToString() == new string(product.ToString().Reverse().ToArray())))
+                    {
+                        maxPalindrome = product;
+                    }
+                }
+            }
+            return maxPalindrome; 
         }
     }
 }

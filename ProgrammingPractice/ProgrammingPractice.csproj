@@ -55,6 +55,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MathManipulation.cs" />
+    <Compile Include="MethodSpecificPages\FindPalindromicNumber.xaml.cs">
+      <DependentUpon>FindPalindromicNumber.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MethodSpecificPages\CalculateClockAngle.xaml.cs">
       <DependentUpon>CalculateClockAngle.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,10 @@
       <DependentUpon>DisplayPane.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MethodSpecificPages\FindPalindromicNumber.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MethodSpecificPages\CalculateClockAngle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

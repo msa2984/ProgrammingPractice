@@ -1,0 +1,27 @@
+﻿<Page x:Class="ProgrammingPractice.MethodSpecificPages.FindPalindromicNumber"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgrammingPractice.MethodSpecificPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Height="500" Width="350" Title="Find Palindromic Number">
+
+    <Grid Background="WhiteSmoke">
+        <Label FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Center" Height="30"
+               Content="Find the Maximum Palindromic Number"/>
+        <TextBlock Name="MethodSummaryTextBlock"  Margin="10,35,10,0" Height="50" VerticalAlignment="Top" TextWrapping="Wrap"/>
+        <Label VerticalAlignment="Top" Margin="10,100,11,0" Height="30" FontWeight="Bold" Content="Please provide the size n of the integers to multiply:"/>
+        <Label FontStyle="Italic" Height="30" Margin="20,130,11,0" VerticalAlignment="Top" Content="n"/>
+        <TextBox Name="NValueTextBox" Height="30" Margin="75,130,11,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75"/>
+        <Button Click="FindPalindrome_Click" Height="30" Width="200" VerticalAlignment="Top" Margin="10,210,10,0"  Content="Run Palindrome Detection Method"/>
+
+        <Grid Name="ResultsGrid" Visibility="Hidden">
+            <Label VerticalAlignment="Top" Margin="10,270,11,0" Height="30" FontWeight="Bold" Content="Result: "/>
+            <Label VerticalAlignment="Top" Margin="10,300,192,0" Height="30" FontStyle="Oblique" Content="Maximum Palindrome "/>
+            <TextBox Name="MaximumPalindromeTextBox" Height="30" VerticalAlignment="Top" Margin="158,300,11,0" 
+                 Background="White" IsReadOnly="True" />
+        </Grid>
+    </Grid>
+</Page>
